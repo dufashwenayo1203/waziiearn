@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wazii Earn - Register</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        header {
+            background: #004d99;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+
+        #register {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #004d99;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .payment-options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .payment-options label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .payment-options label img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .payment-options label:hover {
+            border-color: #0072ff;
+            transform: scale(1.05);
+        }
+
+        button {
+            background: #0072ff;
+            color: white;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #005bb5;
+            transform: translateY(-3px);
+        }
+
+        .loading {
+            display: none;
+            color: #0072ff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            margin-left: 10px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0072ff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <script>
+        function showNotification(message) {
+            const notification = document.getElementById("notification");
+            notification.textContent = message;
+            notification.style.display = "block";
+
+            setTimeout(() => {
+                notification.style.display = "none";
+            }, 5000);
+        }
+
+        function validatePhoneNumber() {
+            const phoneNumber = document.getElementById("phone").value;
+            const mtnRadio = document.getElementById("mtn");
+            const airtelRadio = document.getElementById("airtel");
+
+            if (mtnRadio.checked && !/^07[89]\d{7}$/.test(phoneNumber)) {
+                showNotification("MTN numbers must start with 079 or 078 and be 10 digits long.");
+                return false;
+            }
+            if (airtelRadio.checked && !/^07[23]\d{7}$/.test(phoneNumber)) {
+                showNotification("Airtel numbers must start with 073 or 072 and be 10 digits long.");
+                return false;
+            }
+            return true;
+        }
+
+        function proceedToPayment() {
+            const phoneNumber = document.getElementById("phone").value;
+            const mtnRadio = document.getElementById("mtn");
+            const airtelRadio = document.getElementById("airtel");
+
+            if (validatePhoneNumber()) {
+                let paymentNumber;
+                let paymentMethod = mtnRadio.checked ? "MTN" : "Airtel";
+
+                if (mtnRadio.checked) {
+                    paymentNumber = "0794477485"; // MTN number
+                } else if (airtelRadio.checked) {
+                    paymentNumber = "0722233333"; // Airtel number
+                }
+
+                // Redirect to the payment page with parameters
+                window.location.href = `payment.html?phone=${phoneNumber}&paymentMethod=${paymentMethod}&paymentNumber=${paymentNumber}`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Wazii Earn</h1>
+        <nav>
+            <ul>
+               
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Slide-in Notification -->
+    <div id="notification" class="notification"></div>
+
+    <section id="register">
+        <h2>Register</h2>
+        <form action="#" method="POST" onsubmit="return false;">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+            <h3>Choose Payment Method:</h3>
+            <div class="payment-options">
+                <label>
+                    <input type="radio" id="airtel" name="payment" value="airtel" required>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRttndjLslZ0X7SVZ7O-utsABifafLtgRFc9Q&s" alt="Airtel Money">
+                    Airtel Money
+                </label>
+                <label>
+                    <input type="radio" id="mtn" name="payment" value="mtn" required>
+                    <img src="https://momo.mtn.com/wp-content/uploads/sites/15/2022/07/Group-360.png?fit=360%2C360" alt="MTN MOMO">
+                    MTN MOMO
+                </label>
+            </div>
+
+            <button type="button" onclick="proceedToPayment()">Proceed</button>
+        </form>
+    </section>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wazii Earn - Log In</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #007BFF, #00C6FF);
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            text-shadow: 0 0 15px #FFD700;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        input, button {
+            width: 90%;
+            padding: 12px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input {
+            background: white;
+            color: #333;
+        }
+
+        button {
+            background: linear-gradient(135deg, #FFD700, #FFC107);
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #FFC107, #FFD700);
+            transform: scale(1.05);
+        }
+
+        /* Error Pop-up */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+        }
+
+        .error-popup {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-popup.show {
+            display: block;
+            opacity: 1;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .error-popup a {
+            color: yellow;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Wazii Earn</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Log In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Log In Form -->
+    <section id="login">
+        <div class="form-container">
+            <h2>Log In</h2>
+            <form id="login-form">
+                <label for="phone">MTN Phone Number (10 digits):</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+                <label for="pin">4-digit PIN:</label>
+                <input type="password" id="pin" name="pin" placeholder="Enter your PIN" maxlength="4" required>
+
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Error Pop-up -->
+    <div id="error-popup" class="error-popup">
+        📵 Number not found in our RECORDS! Double-check your phone number or contact <a href="https://www.instagram.com/wiizearn/" target="_blank">Admin Manto</a> on Instagram.🔔
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mock database of valid phone numbers
+        const validNumbers = ["0789123456", "0788567890", "0788001122"];
+
+        // Form submission event listener
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const phoneNumber = document.getElementById("phone").value;
+            const errorPopup = document.getElementById("error-popup");
+
+            if (!validNumbers.includes(phoneNumber)) {
+                errorPopup.innerHTML = `📵 Number not found in our RECORDS! Double-check your phone number or contact <a href="https://www.instagram.com/patrick_lastborn/" target="_blank">Admin Manto</a> on Instagram.🔔`;
+                errorPopup.classList.add("show");
+                setTimeout(() => {
+                    errorPopup.classList.remove("show");
+                }, 40000);
+            } else {
+                alert("✅ Login successful!"); // Placeholder for real login logic
+            }
+        });
+    </script>
+</body>
+</html>
