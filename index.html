@@ -3,184 +3,823 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wazii Earn - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Rwa-vid-cash</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        secondary: '#FF6B6B',
+                        accent: '#FFD166',
+                        dark: {
+                            background: '#181818',
+                            card: '#222222',
+                            text: '#E0E0E0'
+                        },
+                        light: {
+                            background: '#FFFFFF',
+                            card: '#F8F8F8',
+                            text: '#333333'
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary-color: #4c7eff;
-            --dark-color: #1c1c1c;
-            --light-color: #f4f4f4;
-            --accent-color: #ffcc00;
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            animation: fadeIn 1.5s ease;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary-color), #6c63ff);
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0 0;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 600;
-            padding: 10px 20px;
-            background: var(--accent-color);
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            background: white;
-            color: var(--primary-color);
-        }
-
-        section {
-            padding: 80px 20px;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .section-description {
-            font-size: 1.2rem;
-            color: #555;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            line-height: 1.8;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .stat-box {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            width: 250px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .modal-content {
             transition: transform 0.3s ease;
         }
-
-        .stat-box:hover {
-            transform: translateY(-10px);
+        .modal.show .modal-content {
+            transform: translateY(0);
         }
-
-        .stat-box h3 {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin: 0;
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
         }
-
-        .stat-box p {
-            font-size: 1.1rem;
-            color: #777;
+        .modal-hidden {
+            opacity: 0;
+            visibility: hidden;
         }
-
-        .cta-button {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s ease;
+        .modal-hidden .modal-content {
+            transform: translateY(-50px);
         }
-
-        .cta-button:hover {
-            background-color: var(--accent-color);
-            color: var(--dark-color);
+        .logo-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-
-        footer {
-            background: var(--dark-color);
-            color: white;
-            padding: 20px;
-            font-size: 1rem;
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: .8;
+                transform: scale(1.05);
+            }
         }
-
-        @keyframes fadeIn {
+        .coin-rotate {
+            animation: rotate 5s linear infinite;
+        }
+        @keyframes rotate {
             from {
-                opacity: 0;
+                transform: rotateY(0deg);
             }
             to {
-                opacity: 1;
+                transform: rotateY(360deg);
             }
         }
     </style>
 </head>
-<body>
-    <header>
-        <h1 class="header-title">Wazii Earn 💸</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="register.html">Create Account</a></li>
-                <li><a href="login.html">Log In</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="min-h-screen transition-colors duration-300 bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text">
+    <!-- Color scheme detection -->
+    <script>
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
 
-    <section>
-        <h2 class="section-title">Welcome to Wazii Earn</h2>
-        <p class="section-description">Join Rwanda’s leading online earning platform. Discover opportunities to generate income digitally, anytime and anywhere!</p>
-        
-        <div class="stats">
-            <div class="stat-box">
-                <h3 id="people-count">400+</h3>
-                <p>People Served</p>
-            </div>
-            <div class="stat-box">
-                <h3 id="success-rate">95%</h3>
-                <p>Success Rate</p>
-            </div>
-            <div class="stat-box">
-                <h3>24/7</h3>
-                <p>Support Available</p>
+    <!-- App Container -->
+    <div id="app-container" class="relative min-h-screen flex flex-col">
+        <!-- Welcome Page -->
+        <div id="welcome-page" class="flex-grow flex flex-col">
+            <!-- Header -->
+            <header class="bg-primary shadow-md py-4 px-6">
+                <div class="container mx-auto flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="logo-pulse mr-2 text-white text-3xl">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h1 class="font-bold text-white text-xl md:text-2xl">Rwanda Vid Earn</h1>
+                    </div>
+                    <nav>
+                        <button id="login-nav-btn" class="bg-white text-primary font-semibold py-2 px-4 rounded-lg transition hover:bg-opacity-90">
+                            Login
+                        </button>
+                    </nav>
+                </div>
+            </header>
+
+            <!-- Main Welcome Content -->
+            <main class="flex-grow container mx-auto px-4 py-8 md:py-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                   <!-- Welcome Text -->
+<div class="order-2 md:order-1">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">Welcome to Rwanda Vid Earn!</h2>
+    <div class="space-y-4">
+        <p class="text-lg">Make money online by simply watching videos in your spare time!</p>
+        <div class="bg-primary bg-opacity-10 p-4 rounded-lg border-l-4 border-primary">
+            <h3 class="font-bold text-xl mb-2">How It Works:</h3>
+            <ol class="list-decimal list-inside space-y-2">
+                <li>Register and activate your account with a one-time fee of <span class="font-bold">5,000 RWF</span></li>
+                <li>Log in and start watching videos</li>
+                <li>Earn money for each video you Watched👁</li>
+                <li>Withdraw your earnings directly to your mobile money account</li>
+                <li style="color: yellow; font-weight: bold;">
+                    📢 Note: Users who have not completed the payment ❌ will be restricted from watching 👁videos 🎥 and will only have access to a DEMO account 🆓 with limited features 🚫!
+                </li>
+                <li style="color: rgba(39, 146, 57, 0.916); font-weight: bold;">
+                    📝 Minimum withdraw :3000 Frw (every 2 days)                </li>
+            </ol>
+        </div>
+        <div class="bg-accent bg-opacity-20 p-4 rounded-lg border-l-4 border-accent dark:bg-opacity-10">
+            <p class="font-bold">🎁 Special Bonus: Join now and receive 1,000 RWF in your account. Withdraw anytime!</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+            <button id="join-now-btn" class="bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 flex items-center justify-center">
+                <i class="fas fa-user-plus mr-2"></i> Join Now
+            </button>
+            <button id="how-it-works-btn" class="bg-white dark:bg-dark-card border border-primary text-primary font-bold py-3 px-6 rounded-lg shadow transition hover:bg-primary hover:text-white flex items-center justify-center">
+                <i class="fas fa-info-circle mr-2"></i> Learn More
+            </button> 
+            <button id="terms-conditions-btn" class="bg-white dark:bg-dark-card border border-primary text-primary font-bold py-3 px-6 rounded-lg shadow transition hover:bg-primary hover:text-white flex items-center justify-center" onclick="toggleModal()">
+                <i class="fas fa-info-circle mr-2"></i> Terms & Conditions ⚖
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Terms and Conditions -->
+<div id="terms-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center">
+    <div class="bg-black text-white p-6 rounded-lg shadow-lg w-11/12 md:w-1/2">
+        <h3 class="font-bold text-xl mb-4">Terms and Conditions of Use</h3>
+        <p class="mb-4">By using Rwanda Vid Earn, you agree to the following terms and conditions:</p>
+        <ol class="list-decimal list-inside space-y-2">
+            <li class="font-bold">You must be at least 18 years old to register and use this service.</li>
+            <li class="font-bold">All information provided during registration must be accurate and up-to-date.</li>
+            <li class="font-bold">You are responsible for maintaining the confidentiality of your account credentials.</li>
+            <li class="font-bold">Any attempt to manipulate or cheat the system may result in account suspension or termination.</li>
+            <li class="font-bold">Rwanda Vid Earn reserves the right to modify or discontinue services at any time without notice.</li>
+            <li class="font-bold">All earnings are subject to verification and may take time to process.</li>
+            <li class="font-bold">We are not responsible for any technical issues that may prevent access to the platform.</li>
+            <li class="font-bold">By participating, you agree that you are aware of lost of your money due to any time is scam!</li>
+        </ol>
+        <p class="mt-4">For further inquiries, please contact our support team.</p>
+        <button onclick="toggleModal()" class="mt-4 bg-primary text-white py-2 px-4 rounded-lg">Close</button>
+    </div>
+</div>
+
+<style>
+    .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .hidden {
+        display: none;
+    }
+</style>
+
+<script>
+    function toggleModal() {
+        const modal = document.getElementById('terms-modal');
+        modal.classList.toggle('hidden');
+    }
+</script>
+                    <!-- Welcome Animation/Image -->
+                    <div class="order-1 md:order-2 flex justify-center">
+                        <div class="relative h-64 w-64 md:h-80 md:w-80">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-40 h-40 md:w-48 md:h-48 bg-primary rounded-full opacity-20 animate-pulse-slow"></div>
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="relative">
+                                    <div class="w-32 h-32 md:w-40 md:h-40 bg-secondary rounded-full opacity-20 animate-pulse"></div>
+                                    <div class="absolute inset-0 flex items-center justify-center text-6xl md:text-7xl text-primary coin-rotate">
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 right-0 text-4xl text-accent animate-bounce-slow">
+                                <i class="fas fa-hand-holding-dollar"></i>
+                            </div>
+                            <div class="absolute top-0 left-0 text-4xl text-secondary animate-pulse">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+       <!-- Registration Page -->
+<div id="registration-page" class="hidden flex-grow flex flex-col">
+    <header class="bg-primary shadow-md py-4 px-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="logo-pulse mr-2 text-white text-3xl cursor-pointer" id="back-to-welcome">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h1 class="font-bold text-white text-xl md:text-2xl">Create Account</h1>
             </div>
         </div>
-    </section>
+    </header>
 
-    <footer>
-        <p>&copy; 2025 Wazii Earn. All rights reserved.</p>
-    </footer>
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 flex justify-center items-center">
+        <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg p-6 md:p-8 w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-center text-primary">Join Rwanda Vid Earn</h2>
+            <form id="registration-form" class="space-y-6">
+                <div>
+                    <label for="fullname" class="block text-sm font-medium mb-1">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" required 
+                        class="w-full px-4 py-3 rounded-lg border text-base dark:bg-dark-background dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div>
+                    <label for="phone" class="block text-sm font-medium mb-1">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="07XXXXXXXX" required 
+                        class="w-full px-4 py-3 rounded-lg border text-base dark:bg-dark-background dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium mb-1">Email (Optional)</label>
+                    <input type="email" id="email" name="email" 
+                        class="w-full px-4 py-3 rounded-lg border text-base dark:bg-dark-background dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div>
+                    <label for="pin" class="block text-sm font-medium mb-1">Create PIN</label>
+                    <input type="password" id="pin" name="pin" required minlength="4" maxlength="4" 
+                        class="w-full px-4 py-3 rounded-lg border text-base dark:bg-dark-background dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div>
+                    <label for="confirm-pin" class="block text-sm font-medium mb-1">Confirm PIN</label>
+                    <input type="password" id="confirm-pin" name="confirm-pin" required minlength="4" maxlength="4" 
+                        class="w-full px-4 py-3 rounded-lg border text-base dark:bg-dark-background dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <div class="bg-primary bg-opacity-10 dark:bg-opacity-20 p-4 rounded-lg">
+                    <h3 class="font-bold text-sm mb-2">Account Activation:</h3>
+                    <p class="text-sm">To activate your account, you'll need to pay a one-time fee of <span class="font-bold">5,000 RWF</span> to:</p>
+                    <div class="mt-2 p-2 bg-white dark:bg-dark-background rounded flex justify-between items-center">
+                        <div>
+                            <p class="font-bold">07XXXXXXXX</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Account Holder: XXX JOHN</p>
+                        </div>
+                        <button type="button" id="copy-payment-info" class="text-primary">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label for="transaction-id" class="block text-sm font-medium mb-1">Transaction ID (after payment)</label>
+                    <input type="text" id="transaction-id" name="transaction-id" placeholder="Example: OP2305XXXX" 
+                        class="w-full px-4 py-3 rounded-lg border text-base dark:bg-dark-background dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary">
+                </div>
+                <button type="submit" class="w-full bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg shadow transition">
+                    Register & Activate
+                </button>
+            </form>
+        </div>
+    </main>
+</div>
+
+
+        <!-- Login Page -->
+        <div id="login-page" class="hidden flex-grow flex flex-col">
+            <header class="bg-primary shadow-md py-4 px-6">
+                <div class="container mx-auto flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="logo-pulse mr-2 text-white text-3xl cursor-pointer" id="back-from-login">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <h1 class="font-bold text-white text-xl md:text-2xl">Login</h1>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-grow container mx-auto px-4 py-8 md:py-12 flex justify-center items-center">
+                <div class="bg-white dark:bg-dark-card rounded-lg shadow-lg p-6 md:p-8 w-full max-w-md">
+                    <h2 class="text-2xl font-bold mb-6 text-center text-primary">Welcome Back!</h2>
+                    <form id="login-form" class="space-y-6">
+                        <div>
+                            <label for="login-phone" class="block text-sm font-medium mb-1">Phone Number</label>
+                            <input type="tel" id="login-phone" name="login-phone" placeholder="07XXXXXXXX" required 
+                                class="w-full px-4 py-3 rounded-lg border text-base dark:bg-dark-background dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div>
+                            <label for="pin" class="block text-sm font-medium mb-1">PIN</label>
+                            <input type="password" id="pin" name="pin" placeholder="Enter your PIN" required 
+                                class="w-full px-4 py-3 rounded-lg border text-base dark:bg-dark-background dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg shadow transition">
+                            Login
+                        </button>
+                        <div class="text-center mt-4">
+                            <a href="#" id="forgot-pin" class="text-primary hover:underline">Forgot PIN?</a>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+
+       <!-- Dashboard Page -->
+<div id="dashboard-page" class="hidden flex-grow flex flex-col">
+    <header class="bg-primary shadow-md py-4 px-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="logo-pulse mr-2 text-white text-3xl">
+                    <i class="fas fa-video"></i>
+                </div>
+                <li style="color: rgb(81, 249, 115); font-weight: bold;">
+                    <li style="color: rgb(255, 0, 0); font-weight: bold;">
+                        📢 Note: Users who have not completed the payment ❌ will be restricted from watching videos 🎥 and will only have access to a DEMO account 🆓 with limited features 🚫!
+                    </li>
+                </li>
+            </div>
+            <button id="logout-btn" class="text-white">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="bg-primary bg-opacity-10 dark:bg-opacity-20 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <h2 id="dashboard-username" class="font-bold"></h2>
+                <p id="dashboard-phone" class="text-sm"></p>
+            </div>
+            <div class="text-right">
+                <p class="text-sm">💰 Balance</p>
+                <p id="dashboard-balance" class="font-bold text-xl text-primary">1,000 RWF</p>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bg-white dark:bg-dark-card shadow-md">
+        <div class="container mx-auto flex overflow-x-auto">
+            <button class="dash-nav-btn active py-4 px-6 text-primary border-b-2 border-primary font-medium">
+                Home
+            </button>
+            <button class="dash-nav-btn py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
+                Videos
+            </button>
+            <button class="dash-nav-btn py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
+                Earnings
+            </button>
+            <button class="dash-nav-btn py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
+                Withdraw
+            </button>
+            <button class="dash-nav-btn py-4 px-6 text-gray-500 dark:text-gray-400 font-medium">
+                Profile
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto p-4">
+        <div class="bg-white dark:bg-dark-card rounded-lg shadow p-4 mb-6">
+            <h3 class="font-bold text-lg mb-2">Quick Stats</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center p-3 bg-blue-100 dark:bg-blue-900 dark:bg-opacity-20 rounded-lg">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Videos Watched</p>
+                    <p class="font-bold text-xl">0</p>
+                </div>
+                <div class="text-center p-3 bg-green-100 dark:bg-green-900 dark:bg-opacity-20 rounded-lg">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Earnings Today</p>
+                    <p class="font-bold text-xl">+1000 RWF (BONUS)</p>
+                </div>
+                <div class="text-center p-3 bg-purple-100 dark:bg-purple-900 dark:bg-opacity-20 rounded-lg">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Available Videos</p>
+                    <p class="font-bold text-xl">20 videos📺  </p>
+                </div>
+                <div class="text-center p-3 bg-yellow-100 dark:bg-yellow-900 dark:bg-opacity-20 rounded-lg">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Referrals 🧲</p>
+                    <p class="font-bold text-xl">0</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="font-bold text-lg mb-3">Recommended Videos</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white dark:bg-dark-card rounded-lg shadow overflow-hidden">
+                <div class="h-40 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                    <i class="fas fa-play-circle text-3xl text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <div class="p-4">
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-bold">How to start an online business-with BINANCE💲</h4>
+                        <span class="bg-green-100 dark:bg-green-900 dark:bg-opacity-30 text-green-800 dark:text-green-300 text-xs px-2 py-1 rounded-full">150 RWF</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Duration: 3:45</p>
+                    <button class="mt-3 w-full bg-primary text-white py-2 rounded-lg font-medium">Watch Now</button>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-dark-card rounded-lg shadow overflow-hidden">
+                <div class="h-40 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                    <i class="fas fa-play-circle text-3xl text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <div class="p-4">
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-bold">rwanda-by-ish_kevin🆕</h4>
+                        <span class="bg-green-100 dark:bg-green-900 dark:bg-opacity-30 text-green-800 dark:text-green-300 text-xs px-2 py-1 rounded-full">260 RWF</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Duration: 4:20</p>
+                    <button class="mt-3 w-full bg-primary text-white py-2 rounded-lg font-medium">Watch Now</button>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-dark-card rounded-lg shadow overflow-hidden">
+                <div class="h-40 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                    <i class="fas fa-play-circle text-3xl text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <div class="p-4">
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-bold">ratata-by-diez-dollar👌</h4>
+                        <span class="bg-green-100 dark:bg-green-900 dark:bg-opacity-30 text-green-800 dark:text-green-300 text-xs px-2 py-1 rounded-full">185 RWF</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Duration: 2:10</p>
+                    <button class="mt-3 w-full bg-primary text-white py-2 rounded-lg font-medium">Watch Now</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<style>
+    .shake {
+        animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+        0% { transform: translate(1px, 0); }
+        25% { transform: translate(-1px, 0); }
+        50% { transform: translate(1px, 0); }
+        75% { transform: translate(-1px, 0); }
+        100% { transform: translate(0, 0); }
+    }
+</style>
+
+<script>
+    function showWarning(element) {
+        element.classList.add('shake');
+        setTimeout(() => {
+            element.classList.remove('shake');
+        }, 500);
+        alert("🔥⚠ Your account is not activated. Please contact admin at: https://wa.me/+250799379271");
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".dash-nav-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                showWarning(this);
+            });
+        });
+    });
+</script>
+<!-- Footer -->
+<footer class="bg-gray-100 dark:bg-dark-card py-6 px-4">
+    <div class="container mx-auto">
+        <div class="text-center">
+            <h2 class="font-bold text-primary text-lg mb-2">Rwanda Vid Earn</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400">© 2025 All Rights Reserved</p>
+        </div>
+        <div class="flex justify-center space-x-4 mt-4">
+            <a href="https://www.instagram.com/patrick_lastborn/" class="text-gray-600 dark:text-gray-400 hover:text-primary">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/patrick_lastborn/" class="text-gray-600 dark:text-gray-400 hover:text-primary">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.instagram.com/patrick_lastborn/" class="text-gray-600 dark:text-gray-400 hover:text-primary">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.instagram.com/patrick_lastborn/" class="text-gray-600 dark:text-gray-400 hover:text-primary">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+        <div class="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">
+            Terms of Service | Privacy Policy | Contact Us
+        </div>
+        <div class="mt-6 text-center">
+            <h3 class="text-lg font-semibold">People Who Work With Us</h3>
+            <div class="mt-4 flex justify-center space-x-8">
+                <div class="flex flex-col items-center">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStRvrANLeuIx-q8ESvwDRvmgOEIBD8NBe5EA&s" alt="Bank of Kiagali" class="h-12 w-12 rounded-full">
+                    <span class="text-sm mt-1">Bank of Kiagali</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/New-mtn-logo.jpg" alt="MTN Rwanda" class="h-12 w-12 rounded-full">
+                    <span class="text-sm mt-1">MTN Rwanda</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D0BAQGl6A2fS5XQmQ/company-logo_200_200/company-logo_200_200/0/1702711337916/youthculturerw_logo?e=2147483647&v=beta&t=DgdGQraOa01zjFglXImV8jtWUiBSEG7XvtTM7XgnaTs" alt="Ministry of Youth and Arts" class="h-12 w-12 rounded-full">
+                    <span class="text-sm mt-1">Ministry of Youth and Arts</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        <!-- Modals -->
+        <!-- Welcome Bonus Modal -->
+        <div id="bonus-modal" class="modal modal-hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div class="modal-content bg-white dark:bg-dark-card rounded-lg shadow-lg p-6 max-w-sm mx-4 transform -translate-y-10">
+                <div class="text-center">
+                    <div class="inline-block p-4 bg-yellow-100 dark:bg-yellow-900 dark:bg-opacity-30 rounded-full text-yellow-500 text-4xl mb-4">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Welcome Bonus!</h3>
+                    <p class="mb-4">Congratulations! You have received a signup bonus of</p>
+                    <p class="text-3xl font-bold text-primary mb-4">1,000 RWF</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Complete your registration to claim this bonus!</p>
+                    <button id="claim-bonus-btn" class="w-full bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg shadow transition">
+                        Claim Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Modal -->
+        <div id="how-it-works-modal" class="modal modal-hidden fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <div class="modal-content bg-white dark:bg-dark-card rounded-lg shadow-lg p-6 max-w-md mx-4 transform -translate-y-10 max-h-[90vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold">How Rwanda Vid Earn Works</h3>
+                    <button id="close-how-it-works" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-primary text-white p-2 rounded-full mr-3">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Step 1: Registration</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Sign up with your phone number and personal details.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary text-white p-2 rounded-full mr-3">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Step 2: Account Activation</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Pay the one-time 5,000 RWF activation fee to unlock all features and receive your 1,000 RWF welcome bonus.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary text-white p-2 rounded-full mr-3">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Step 3: Watch Videos</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Browse available videos and earn money for each one you watch completely.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary text-white p-2 rounded-full mr-3">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Step 4: Cash Out</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Once you reach the minimum withdrawal amount, cash out directly to your mobile money account.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-primary text-white p-2 rounded-full mr-3">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Step 5: Refer Friends (Optional)</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Refer your friends and earn a commission on their earnings!</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-dark-background p-4 rounded-lg mt-4">
+                        <h4 class="font-bold mb-2">Payment Information</h4>
+                        <p class="text-sm">Send 5,000 RWF to:</p>
+                        <p class="font-bold">07XXXXXXXX (JOHN XXXX)</p>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <button id="start-earning-btn" class="w-full bg-primary hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg shadow transition">
+                        Start Earning Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // DOM Elements
+        const welcomePage = document.getElementById('welcome-page');
+        const registrationPage = document.getElementById('registration-page');
+        const loginPage = document.getElementById('login-page');
+        const dashboardPage = document.getElementById('dashboard-page');
+        const bonusModal = document.getElementById('bonus-modal');
+        const howItWorksModal = document.getElementById('how-it-works-modal');
+
+        // Navigation buttons
+        const joinNowBtn = document.getElementById('join-now-btn');
+        const loginNavBtn = document.getElementById('login-nav-btn');
+        const backToWelcome = document.getElementById('back-to-welcome');
+        const backFromLogin = document.getElementById('back-from-login');
+        const howItWorksBtn = document.getElementById('how-it-works-btn');
+        const closeHowItWorks = document.getElementById('close-how-it-works');
+        const startEarningBtn = document.getElementById('start-earning-btn');
+        const claimBonusBtn = document.getElementById('claim-bonus-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        // Forms
+        const registrationForm = document.getElementById('registration-form');
+        const loginForm = document.getElementById('login-form');
+        
+        // Copy payment info
+        const copyPaymentInfoBtn = document.getElementById('copy-payment-info');
+        
+        // Show page function
+        function showPage(page) {
+            welcomePage.classList.add('hidden');
+            registrationPage.classList.add('hidden');
+            loginPage.classList.add('hidden');
+            dashboardPage.classList.add('hidden');
+            
+            page.classList.remove('hidden');
+        }
+        
+        // Show modal function
+        function showModal(modal) {
+            modal.classList.remove('modal-hidden');
+            modal.classList.add('show');
+        }
+        
+        // Hide modal function
+        function hideModal(modal) {
+            modal.classList.remove('show');
+            modal.classList.add('modal-hidden');
+        }
+        
+        // Join Now button
+        joinNowBtn.addEventListener('click', () => {
+            showPage(registrationPage);
+            // Show bonus modal after a slight delay
+            setTimeout(() => {
+                showModal(bonusModal);
+            }, 500);
+        });
+        
+        // Login button
+        loginNavBtn.addEventListener('click', () => {
+            showPage(loginPage);
+        });
+        
+        // Back buttons
+        backToWelcome.addEventListener('click', () => {
+            showPage(welcomePage);
+        });
+        
+        backFromLogin.addEventListener('click', () => {
+            showPage(welcomePage);
+        });
+        
+        // How It Works button
+        howItWorksBtn.addEventListener('click', () => {
+            showModal(howItWorksModal);
+        });
+        
+        // Close How It Works modal
+        closeHowItWorks.addEventListener('click', () => {
+            hideModal(howItWorksModal);
+        });
+        
+        // Start Earning button in How It Works modal
+        startEarningBtn.addEventListener('click', () => {
+            hideModal(howItWorksModal);
+            showPage(registrationPage);
+            
+            // Show bonus modal after a slight delay
+            setTimeout(() => {
+                showModal(bonusModal);
+            }, 500);
+        });
+        
+        // Claim Bonus button
+        claimBonusBtn.addEventListener('click', () => {
+            hideModal(bonusModal);
+        });
+        
+        // Copy payment info
+        copyPaymentInfoBtn.addEventListener('click', () => {
+            const paymentInfo = "070794477485 (xxxx)";
+            
+            try {
+                navigator.clipboard.writeText(paymentInfo).then(() => {
+                    // Change icon temporarily to indicate success
+                    copyPaymentInfoBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    
+                    setTimeout(() => {
+                        copyPaymentInfoBtn.innerHTML = '<i class="fas fa-copy"></i>';
+                    }, 2000);
+                });
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        });
+        
+        // Registration form submission
+        registrationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const fullname = document.getElementById('fullname').value;
+            const phone = document.getElementById('phone').value;
+            const transactionId = document.getElementById('transaction-id').value;
+            
+            // Simple validation
+            if (!fullname || !phone) {
+                alert('Your account not activated ');
+                return;
+            }
+            
+            // Store user data in session
+            const userData = {
+                name: fullname,
+                phone: phone,
+                balance: 1000 // Starting bonus
+            };
+            
+            // Since localStorage is not available in sandboxed iframe, 
+            // we'll just use a variable for this demo
+            window.currentUser = userData;
+            
+            // Update dashboard
+            document.getElementById('dashboard-username').textContent = userData.name;
+            document.getElementById('dashboard-phone').textContent = userData.phone;
+            document.getElementById('dashboard-balance').textContent = userData.balance + ' RWF';
+            
+            // Navigate to dashboard
+            showPage(dashboardPage);
+        });
+        
+        // Login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const phone = document.getElementById('login-phone').value;
+            const pin = document.getElementById('pin').value;
+            
+            // Simple validation
+            if (!phone || !pin) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Check PIN (fixed as 1234 as per requirements)
+            if (pin !== '1234') {
+                alert('Invalid PIN. Please try again.');
+                return;
+            }
+            
+            // For demo purposes, create a mock user
+            const userData = {
+                name: "Demo User",
+                phone: phone,
+                balance: 1000
+            };
+            
+            window.currentUser = userData;
+            
+            // Update dashboard
+            document.getElementById('dashboard-username').textContent = userData.name;
+            document.getElementById('dashboard-phone').textContent = userData.phone;
+            document.getElementById('dashboard-balance').textContent = userData.balance + ' RWF';
+            
+            // Navigate to dashboard
+            showPage(dashboardPage);
+        });
+        
+        // Logout button
+        logoutBtn.addEventListener('click', () => {
+            window.currentUser = null;
+            showPage(welcomePage);
+        });
+        
+        // Dashboard navigation
+        const dashNavBtns = document.querySelectorAll('.dash-nav-btn');
+        dashNavBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                dashNavBtns.forEach(b => b.classList.remove('active', 'text-primary', 'border-b-2', 'border-primary'));
+                dashNavBtns.forEach(b => b.classList.add('text-gray-500', 'dark:text-gray-400'));
+                
+                btn.classList.remove('text-gray-500', 'dark:text-gray-400');
+                btn.classList.add('active', 'text-primary', 'border-b-2', 'border-primary');
+            });
+        });
+    </script>
 </body>
 </html>
